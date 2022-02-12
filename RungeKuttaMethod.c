@@ -1,14 +1,16 @@
 /* Runge Kutta method */
 #include <stdio.h>
 #include <math.h>
-float f1(float x,float y)
-{ return(x+y); }
+float f1(float x,float y){
+     return(-0.5*x/y); }
+float r(float x){
+    return(sqrt(4-x*x/2));}
 int main(void)
 {
     int i;
     float x[100],y[100],h=0.2,r,A,B,C,D;
     x[0]=0.0;
-    y[0]=0.0;
+    y[0]=2.0;
     i=0;
     printf(" x , y (error)\n");
     do {
@@ -20,6 +22,20 @@ int main(void)
         y[i+1]=y[i]+(A+2.0*B+2.0*C+D)/6.0;
         i++;
         r=exp(x[i])-x[i]-1;
-        printf("%f, %f (%f)\n",x[i],y[i],r-y[i]);
-    } while(x[i]<1.0);
+        printf("%f, %f (%f)\n",x[i],y[i],r-x[i]-y[i]);
+    } while(x[i]<2.0);
 }
+
+/*
+ x , y (error)
+0.200000, 1.994994 (-2.173591)
+0.400000, 1.979899 (-2.288074)
+0.600000, 1.954482 (-2.332363)
+0.800000, 1.918332 (-2.292792)
+1.000000, 1.870829 (-2.152547)
+1.200000, 1.811077 (-1.890960)
+1.400000, 1.737814 (-1.482614)
+1.600000, 1.649242 (-0.896209)
+1.800000, 1.542724 (-0.093076)
+2.000000, 1.414212 (0.974846)
+*/
